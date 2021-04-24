@@ -1,45 +1,37 @@
-
 import './App.css';
 import JSONDATA from './MOCK_DATA.json';
-import { useState } from 'react';
-import { BsFillPlusSquareFill } from 'react-icons/bs';
+import {useState} from 'react';
+import {BsFillPlusSquareFill} from 'react-icons/bs';
 
 
 function First() {
-  const [searchTerm, setSearchTerm] = useState("");
-
+  
+  const [searchTerm, setSearchTerm, setData] = useState("");
+  
+  function addText() {
+    JSONDATA.push({
+      "id": 11,
+      "first_name": Math.random().toString(36).substring(7),
+    })
+  }
+  
+  
   return (
     <>
       <div className="header">
-
+        
         <input type="text" placeholder="Search" className="search" onChange={(event) => {
           setSearchTerm(event.target.value);
-        }} />
-
-        <button type="button" class="btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-          <h2 > <BsFillPlusSquareFill /> </h2>
+        }}/>
+        
+        <button type="button" className="btn btn-sm btn-primary m-2"
+                onClick={addText}>
+          + Add Random Text
         </button>
       </div>
-
-      <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel"></h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-            <input type="text" class="form-control" placeholder="Enter name" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" />
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">CLOSE</button>
-              <button type="button" class="btn btn-primary">ADD</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      
       <div className="App">
-
+        
         {JSONDATA.filter((val) => {
           if (searchTerm == "") {
             return val
@@ -50,9 +42,11 @@ function First() {
           return (
             <div className="user" key={key}>
               <p>{val.first_name}</p>
+             
             </div>
           );
         })}
+      
       </div>
     </>
   );
@@ -60,14 +54,11 @@ function First() {
 
 function App() {
   return (
-
-
     <div className="App">
       <First></First>
-
     </div>
   );
-
+  
 }
 
 export default App;
